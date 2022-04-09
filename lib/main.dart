@@ -1,4 +1,5 @@
 import 'package:expert_system/ui/pages/home_page.dart';
+import 'package:expert_system/ui/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/octicons_icons.dart';
 
@@ -46,11 +47,11 @@ class _NavigationState extends State<Navigation> {
           },
           destinations: const [
             NavigationRailDestination(
-                icon: Icon(Octicons.repo), label: Text('Repositories')),
+                icon: Icon(Octicons.repo), label: Text('Home')),
             NavigationRailDestination(
-                icon: Icon(Octicons.issue_opened), label: Text('Assigned Issues')),
+                icon: Icon(Icons.history), label: Text('History')),
             NavigationRailDestination(
-                icon: Icon(Octicons.git_pull_request), label: Text('Pull Requests')),
+                icon: Icon(Octicons.settings), label: Text('Settings')),
           ],
         ),
         const VerticalDivider(
@@ -63,7 +64,7 @@ class _NavigationState extends State<Navigation> {
           children: [
             const HomePage(),
             Container(decoration: const BoxDecoration(color: Colors.purple),),
-            Container(decoration: const BoxDecoration(color: Colors.amber),),
+            const SettingsPage(),
           ],
         ))
       ],
