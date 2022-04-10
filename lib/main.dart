@@ -1,7 +1,7 @@
-import 'package:expert_system/ui/pages/home_page.dart';
-import 'package:expert_system/ui/pages/settings_page.dart';
+import 'package:expert_system/shared/styles/themes.dart';
+import 'package:expert_system/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttericon/octicons_icons.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,62 +12,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData.dark().copyWith(
-          // primarySwatch: Colors.red,
-          ),
-      home: const Navigation(),
-    );
-  }
-}
-
-class Navigation extends StatefulWidget {
-  const Navigation({Key? key}) : super(key: key);
-
-  @override
-  State<Navigation> createState() => _NavigationState();
-}
-
-class _NavigationState extends State<Navigation> {
-  int _selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        NavigationRail(
-          selectedIndex: _selectedIndex,
-          labelType: NavigationRailLabelType.selected,
-          onDestinationSelected: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          destinations: const [
-            NavigationRailDestination(
-                icon: Icon(Octicons.repo), label: Text('Home')),
-            NavigationRailDestination(
-                icon: Icon(Icons.history), label: Text('History')),
-            NavigationRailDestination(
-                icon: Icon(Octicons.settings), label: Text('Settings')),
-          ],
-        ),
-        const VerticalDivider(
-          thickness: 1,
-          width: 1,
-        ),
-        Expanded(
-            child: IndexedStack(
-          index: _selectedIndex,
-          children: [
-            const HomePage(),
-            Container(decoration: const BoxDecoration(color: Colors.purple),),
-            const SettingsPage(),
-          ],
-        ))
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (create) => ThemeNotifier())
       ],
+      child: Consumer<ThemeNotifier>(
+        builder: (context, value, child) {
+          return MaterialApp(
+            title: 'Expert System',
+            debugShowCheckedModeBanner: false,
+            theme: value.darkTheme ? ThemeData.dark() : ThemeData.light(),
+            home: const Navigation(),
+          );
+        }
+      ),
     );
   }
 }
+
+
