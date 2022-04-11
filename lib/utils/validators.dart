@@ -1,15 +1,15 @@
+import 'dart:ffi';
+
 class Validators {
-  static final RegExp _emailRegExp = RegExp(
-        r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
-      ),
+  static final RegExp 
       _ruleRegExp = RegExp(r'(\{.*?\})'),
       _ifRegExp = RegExp(r'^\{IF:\s+(\[.*?\])'),
       _thenRegExp = RegExp(r'THEN:\s+(\".*?\")'),
       _descriptionRegExp = RegExp(r'DESCRIPTION:\s+(\".*?\")');
 
-  static isValidEmail(String email) {
-    return _emailRegExp.hasMatch(email);
-  }
+  // static isValidEmail(String email) {
+  //   return _emailRegExp.hasMatch(email);
+  // }
 }
 
 
