@@ -5,5 +5,5 @@ class Person {
   });
 
   final int age;
-  final Map<String, bool?> symptoms;
+  final List<String> symptoms;
 }
