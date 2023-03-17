@@ -1,4 +1,4 @@
-import 'package:expert_system/constants/symptoms.dart';
+import 'package:expert_system/engine/symptoms.dart';
 import 'package:expert_system/models/illness.dart';
 
 class KnowledgeBase {

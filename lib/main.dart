@@ -1,5 +1,5 @@
-import 'package:expert_system/styles/themes.dart';
-import 'package:expert_system/widgets/navigation.dart';
+import 'package:expert_system/shared/styles/themes.dart';
+import 'package:expert_system/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Expert System',
             debugShowCheckedModeBanner: false,
-            theme: value.darkTheme ? ThemeData.dark() : ThemeData.light(),
+            theme: value.darkTheme ? MyThemes.darkTheme : MyThemes.lightTheme,
             home: const Navigation(),
           );
         }

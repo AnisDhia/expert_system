@@ -1,4 +1,5 @@
-import 'package:expert_system/styles/themes.dart';
+import 'package:expert_system/shared/styles/colors.dart';
+import 'package:expert_system/shared/styles/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,13 +25,15 @@ class _HomePageState extends State<SettingsPage> {
               // subtitle: const Text('hint'),
               trailing:
                   Consumer<ThemeNotifier>(builder: (context, value, child) {
-                return CupertinoSwitch(
-                    activeColor: Colors.blue,
-                    value: value.darkTheme,
-                    onChanged: (newValue) {
-                      value.toggleTheme();
-                    });
-              }),
+                return Switch(value: value.darkTheme, onChanged: (newValue) {value.toggleTheme();});}
+              //   CupertinoSwitch(
+              //       activeColor: primary,
+              //       value: value.darkTheme,
+              //       onChanged: (newValue) {
+              //         value.toggleTheme();
+              //       });
+              // }
+              ),
               onTap: () {
                 print('list tile clicked');
               },

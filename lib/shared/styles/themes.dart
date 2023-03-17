@@ -1,38 +1,50 @@
+import 'package:expert_system/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyThemes {
-  static const primary = Colors.red;
   static final primaryColor = Colors.red.shade300;
 
   static final darkTheme = ThemeData(
-    appBarTheme: AppBarTheme(
-      color: Colors.grey.shade900,
+    primaryColor: primary,
+    useMaterial3: true,
+
+    appBarTheme: const AppBarTheme(
+      color: darkerBlue,
       elevation: 0,
     ),
-    scaffoldBackgroundColor: Colors.black,
+    navigationRailTheme: const NavigationRailThemeData(
+        backgroundColor: darkerBlue, indicatorColor: primary),
+
+    checkboxTheme: const CheckboxThemeData(
+        fillColor: MaterialStatePropertyAll(primary),
+        ),
+    scaffoldBackgroundColor: darkBlue,
     primaryColorDark: primaryColor,
-    colorScheme: const ColorScheme.dark(primary: primary),
-    dividerColor: Colors.white,
+    colorScheme: const ColorScheme.dark(primary: primary, background: darkBlue),
     tabBarTheme: TabBarTheme(
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white.withOpacity(0.2)),
     // floatingActionButtonTheme:
     //     const FloatingActionButtonThemeData(backgroundColor: primary),
-    listTileTheme: const ListTileThemeData(textColor: Colors.white),
-    cardColor: const Color.fromARGB(255, 15, 15, 15),
+
+    listTileTheme:
+        const ListTileThemeData(textColor: Colors.white, tileColor: darkerBlue),
+    cardColor: darkerBlue,
+    cardTheme: const CardTheme(color: darkerBlue, surfaceTintColor: darkerBlue),
+
     textButtonTheme: TextButtonThemeData(
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(Colors.white),
-      )
-    ),
+        style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all(Colors.white),
+    )),
   );
 
   static final lightTheme = ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: Colors.white,
     // primaryColor: Colors.white,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       elevation: 0,
     ),
@@ -44,11 +56,9 @@ class MyThemes {
     listTileTheme: const ListTileThemeData(textColor: Colors.black),
     cardColor: Colors.grey.shade200,
     textButtonTheme: TextButtonThemeData(
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(Colors.black),
-        
-      )
-    ),
+        style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all(Colors.black),
+    )),
   );
 }
 
