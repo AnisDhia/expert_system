@@ -50,11 +50,17 @@ class MyThemes {
     ),
     colorScheme: const ColorScheme.light(primary: primary),
     dividerColor: Colors.black,
+
     tabBarTheme: TabBarTheme(
         labelColor: Colors.black,
         unselectedLabelColor: Colors.black.withOpacity(0.3)),
+     navigationRailTheme: NavigationRailThemeData(
+      elevation: 20,
+      selectedIconTheme: const IconThemeData(color: Colors.white),
+         backgroundColor: ThemeData.light().cardColor, indicatorColor: primary),
+
     listTileTheme: const ListTileThemeData(textColor: Colors.black),
-    cardColor: Colors.grey.shade200,
+    // cardColor: Colors.grey.shade200,
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
       foregroundColor: MaterialStateProperty.all(Colors.black),

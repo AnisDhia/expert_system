@@ -1,0 +1,145 @@
+{
+    "illnesses": [
+        {
+            "name": "major depressive disorder",
+            "symptoms": [
+                "history of depression",
+                "persistent low mood",
+                "loss of interest in activities",
+                "suicidal ideation"
+            ]
+        },
+        {
+            "name": "generalized anxiety disorder",
+            "symptoms": [
+                "persistent and excessive anxiety or worry",
+                "trembling",
+                "sweating",
+                "palpitations"
+            ]
+        },
+        {
+            "name": "panic disorder",
+            "symptoms": [
+                "sudden and recurrent panic attacks",
+                "intense fear",
+                "chest pain",
+                "sense of impending doom"
+            ]
+        },
+        {
+            "name": "schizophrenia",
+            "symptoms": [
+                "hallucinations",
+                "delusions",
+                "disorganized thinking"
+            ]
+        },
+        {
+            "name": "attention-deficit/hyperactivity disorder (ADHD)",
+            "symptoms": [
+                "inattention",
+                "impulsivity",
+                "hyperactivity"
+            ]
+        },
+        {
+            "name": "bipolar disorder",
+            "symptoms": [
+                "mood swings",
+                "elevated, expansive, or irritable mood",
+                "depression"
+            ]
+        },
+        {
+            "name": "obsessive-compulsive disorder (OCD)",
+            "symptoms": [
+                "obsessive thoughts",
+                "repetitive behaviors"
+            ]
+        },
+        {
+            "name": "paranoid personality disorder",
+            "symptoms": [
+                "paranoia",
+                "distrust",
+                "suspiciousness"
+            ]
+        },
+        {
+            "name": "borderline personality disorder",
+            "symptoms": [
+                "emotional instability",
+                "impulsivity",
+                "unstable relationships"
+            ]
+        },
+        {
+            "name": "social anxiety disorder",
+            "symptoms": [
+                "chronic anxiety",
+                "avoidance behavior in social situations"
+            ]
+        },
+        {
+            "name": "post-traumatic stress disorder (PTSD)",
+            "symptoms": [
+                "recurrent, unwanted thoughts or images",
+                "compulsive behaviors or mental acts"
+            ]
+        },
+        {
+            "name": "acute stress disorder",
+            "symptoms": [
+                "recurrent nightmares",
+                "flashbacks",
+                "avoidance behaviors"
+            ]
+        },
+        {
+            "name": "eating disorder",
+            "symptoms": [
+                "anorexia nervosa",
+                "bulimia nervosa"
+            ]
+        },
+        {
+            "name": "substance use disorder",
+            "symptoms": [
+                "increased tolerance",
+                "withdrawal symptoms",
+                "continued use despite negative consequences"
+            ]
+        },
+        {
+            "name": "sleep disorder",
+            "symptoms": [
+                "insomnia",
+                "hypersomnia"
+            ]
+        },
+        {
+            "name": "dissociative disorder",
+            "symptoms": [
+                "feeling detached from oneself or one's surroundings"
+            ]
+        },
+        {
+            "name": "neuro-cognitive disorder",
+            "symptoms": [
+                "personality changes",
+                "memory loss",
+                "impaired cognitive function"
+            ]
+        },
+        {
+            "name": "impulse control disorder",
+            "symptoms": [
+                "gambling",
+                "shopping",
+                "other addictive behaviors"
+            ]
+        }
+    ]
+}
+        

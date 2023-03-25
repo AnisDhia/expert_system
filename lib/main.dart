@@ -1,3 +1,4 @@
+import 'package:expert_system/engine/engine.dart';
 import 'package:expert_system/shared/styles/themes.dart';
 import 'package:expert_system/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +10,12 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (create) => ThemeNotifier())
+        ChangeNotifierProvider(create: (create) => ThemeNotifier()),
+        ChangeNotifierProvider(create: (create) => Engine()),
       ],
       child: Consumer<ThemeNotifier>(
         builder: (context, value, child) {

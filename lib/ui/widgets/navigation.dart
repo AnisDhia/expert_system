@@ -1,3 +1,4 @@
+import 'package:expert_system/engine/engine.dart';
 import 'package:expert_system/ui/pages/edit_page.dart';
 import 'package:expert_system/ui/pages/home_page.dart';
 import 'package:expert_system/ui/pages/settings_page.dart';
@@ -14,6 +15,7 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   int _selectedIndex = 0;
   late PageController _pageController;
+  // Engine engine = Engine();
 
   @override
   void initState() {
@@ -67,10 +69,10 @@ class _NavigationState extends State<Navigation> {
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
           // index: _selectedIndex,
-          children: const [
+          children:  [
             HomePage(),
             EditPage(),
-            SettingsPage(),
+            const SettingsPage(),
           ],
         ))
       ],
