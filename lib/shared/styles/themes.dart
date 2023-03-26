@@ -8,17 +8,22 @@ class MyThemes {
   static final darkTheme = ThemeData(
     primaryColor: primary,
     useMaterial3: true,
+    popupMenuTheme: PopupMenuThemeData(
+      color: veryDarkBlue,
+      surfaceTintColor: veryDarkBlue,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+    ),
 
     appBarTheme: const AppBarTheme(
-      color: darkerBlue,
+      color: veryDarkBlue,
       elevation: 0,
     ),
     navigationRailTheme: const NavigationRailThemeData(
         backgroundColor: darkerBlue, indicatorColor: primary),
 
     checkboxTheme: const CheckboxThemeData(
-        fillColor: MaterialStatePropertyAll(primary),
-        ),
+      fillColor: MaterialStatePropertyAll(primary),
+    ),
     scaffoldBackgroundColor: darkBlue,
     primaryColorDark: primaryColor,
     colorScheme: const ColorScheme.dark(primary: primary, background: darkBlue),
@@ -30,21 +35,27 @@ class MyThemes {
 
     listTileTheme:
         const ListTileThemeData(textColor: Colors.white, tileColor: darkerBlue),
-    cardColor: darkerBlue,
-    cardTheme: const CardTheme(color: darkerBlue, surfaceTintColor: darkerBlue),
+    cardTheme: CardTheme(
+      color: darkerBlue,
+      surfaceTintColor: darkerBlue,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    ),
 
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
       foregroundColor: MaterialStateProperty.all(Colors.white),
     )),
+
+    
   );
 
+  // ? LIGHT THEEEEEEEME !!!!!!!!!
   static final lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: Colors.white,
     // primaryColor: Colors.white,
     appBarTheme: const AppBarTheme(
-      // backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       elevation: 0,
     ),
@@ -54,10 +65,11 @@ class MyThemes {
     tabBarTheme: TabBarTheme(
         labelColor: Colors.black,
         unselectedLabelColor: Colors.black.withOpacity(0.3)),
-     navigationRailTheme: NavigationRailThemeData(
-      elevation: 20,
-      selectedIconTheme: const IconThemeData(color: Colors.white),
-         backgroundColor: ThemeData.light().cardColor, indicatorColor: primary),
+    navigationRailTheme: NavigationRailThemeData(
+        elevation: 20,
+        selectedIconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: ThemeData.light().cardColor,
+        indicatorColor: primary),
 
     listTileTheme: const ListTileThemeData(textColor: Colors.black),
     // cardColor: Colors.grey.shade200,
