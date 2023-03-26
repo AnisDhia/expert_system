@@ -1,9 +1,6 @@
 import 'package:expert_system/engine/engine.dart';
-import 'package:expert_system/engine/rule.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../engine/clauses/clause.dart';
 
 class EditPage extends StatefulWidget {
   // final Engine engine;
@@ -19,7 +16,6 @@ class _EditPageState extends State<EditPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // rules = widget.engine.rules;
     // facts = widget.engine.knowledgeBase.getFacts();
@@ -46,6 +42,17 @@ class _EditPageState extends State<EditPage> {
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
                                 children: [
+                                  SizedBox(
+                                    width: 500,
+                                    height: 500,
+                                    child: ListView.builder(
+                                      itemBuilder: (itemBuilder, index) {
+                                        return Text(
+                                            value.rules[index].toString());
+                                      },
+                                      itemCount: value.rules.length,
+                                    ),
+                                  ),
                                   Container(
                                     height: 500,
                                     width: 500,
@@ -85,7 +92,8 @@ class _EditPageState extends State<EditPage> {
                                         return Text(
                                             '${value.knowledgeBase.getFacts()[index].variable} = ${value.knowledgeBase.getFacts()[index].value}');
                                       },
-                                      itemCount: value.knowledgeBase.getFacts().length,
+                                      itemCount:
+                                          value.knowledgeBase.getFacts().length,
                                     ),
                                   ),
                                 ],

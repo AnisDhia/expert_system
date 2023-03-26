@@ -42,8 +42,8 @@ class Clause {
     throw Exception('intersect() not implemented');
   }
 
+  @override
   String toString() {
     return "$variable $condition $value";
   }
-
 }

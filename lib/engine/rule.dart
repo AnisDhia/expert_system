@@ -3,7 +3,7 @@ import 'package:expert_system/engine/knowledge_base.dart';
 
 class Rule {
   List<Clause> antecedents = [];
-  Clause? consequent = null;
+  Clause? consequent;
   bool fired = false;
   String name;
 
@@ -43,5 +43,15 @@ class Rule {
 
   bool isFired() {
     return fired;
+  }
+
+  @override
+  String toString() {
+    String antecedentsString = "";
+    for (Clause antecedent in antecedents) {
+      antecedentsString += "${antecedent.toString()} AND ";
+    }
+    antecedentsString = antecedentsString.substring(0, antecedentsString.length - 5);
+    return "IF $antecedentsString THEN ${consequent.toString()}";
   }
 }

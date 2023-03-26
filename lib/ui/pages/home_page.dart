@@ -1,7 +1,9 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:expert_system/engine/clauses/clause.dart';
 import 'package:expert_system/engine/engine.dart';
 import 'package:expert_system/engine/rule.dart';
-import 'package:expert_system/ui/widgets/circular_progress_widget.dart';
+import 'package:expert_system/shared/styles/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,227 +17,166 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late ScrollController scrollController;
-  // Engine engine = Engine();
-  final _formKey = GlobalKey<FormState>();
-  late TextEditingController _ageController;
+  late TextEditingController _inputController;
   late List<String> facts;
   late String result;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     scrollController = ScrollController();
-    _ageController = TextEditingController();
+    _inputController = TextEditingController();
     facts = [];
     result = 'nothing';
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     scrollController.dispose();
-    _ageController.dispose();
+    _inputController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        controller: scrollController,
-        physics: const ScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text(
-                          'How old is the patient?',
-                          style: TextStyle(fontSize: 22),
-                        ),
-                        SizedBox(
-                            width: 100,
-                            child: TextFormField(
-                              controller: _ageController,
-                              decoration: const InputDecoration(
-                                label: Text('Age'),
-                              ),
-                              onChanged: (value) {},
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                return (int.tryParse(value!) == null)
-                                    ? 'Enter a valid age'
-                                    : null;
-                              },
-                            )),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        const Text(
-                          'Which of these facts does the patient have?',
-                          style: TextStyle(fontSize: 22),
-                        ),
-                        // IconButton(
-                        //   onPressed: () {
-                        //     showSearch(
-                        //         context: context, delegate: MySearchDelegate());
-                        //   },
-                        //   icon: const Icon(Icons.search),
-                        // ),
-                        SizedBox(
-                          width: 300,
-                          child: Consumer<Engine>(
-                            builder: (buildContext, value, child) =>
-                                ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: value.knowledgeBase.facts.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Card(
-                                        margin: const EdgeInsets.all(8),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(children: [
-                                            Expanded(
-                                              child: Text(value.knowledgeBase
-                                                  .facts[index].value),
-                                            ),
-                                            Checkbox(
-                                              value: facts.contains(value
-                                                  .knowledgeBase.facts[index]),
-                                              onChanged: (value1) {
-                                                setState(() {
-                                                  if (facts.contains(value
-                                                      .knowledgeBase
-                                                      .facts[index])) {
-                                                    facts.remove(value
-                                                        .knowledgeBase
-                                                        .facts[index]);
-                                                  } else {
-                                                    facts.add(value
-                                                        .knowledgeBase
-                                                        .facts[index]
-                                                        .value);
-                                                  }
-                                                });
-                                              },
-                                            )
-                                          ]),
-                                        ),
-                                      );
-                                    }),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        // Row(
-                        //   children: [
-                        //     SizedBox(
-                        //       width: 100,
-                        //       child: ElevatedButton(
-                        //           onPressed: () {
-                        //             _submitForm();
-                        //             scrollController.animateTo(0,
-                        //                 duration: const Duration(seconds: 1),
-                        //                 curve: Curves.easeIn);
-                        //           },
-                        //           child: const Text('Submit')),
-                        //     ),
-                        //   ],
-                        // )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+    return Consumer<Engine>(
+      builder: (context, value, child) => Scaffold(
+        body: SingleChildScrollView(
+          controller: scrollController,
+          physics: const ScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              children: [
+                Card(
+                  child: Row(
                     children: [
                       const SizedBox(
-                        width: 14,
+                        width: 10,
                       ),
-                      Row(
-                        children: [
-                          const Text('The patient is diagnosed with ',
-                              style: TextStyle(fontSize: 30)),
-                          Text(
-                            result,
-                            style: const TextStyle(fontSize: 30),
-                          ),
-                        ],
-                      ),
+                      const Icon(Icons.search),
                       const SizedBox(
-                        height: 30,
+                        width: 10,
                       ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  CircularProgressWidget(
-                                      title: 'Depression', percent: 33.3),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  CircularProgressWidget(
-                                    title: 'Anxiety',
-                                    percent: 50,
-                                  ),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  CircularProgressWidget(
-                                    title: 'ADHD',
-                                    percent: 16.7,
-                                  ),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                ],
-                              ),
-                              Image.asset(
-                                  'assets/images/Psychologist-amico.png')
-                            ],
+                      Expanded(
+                        child: TextFormField(
+                          controller: _inputController,
+                          decoration: const InputDecoration(
+                            hintText: 'Input your fact here',
+                            border: InputBorder.none,
                           ),
                         ),
-                      )
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          List<String> parts =
+                              _inputController.text.toLowerCase().split(' ');
+                          if (parts.length != 3) {
+                            await Flushbar(
+                              shouldIconPulse: true,
+                              icon: const Icon(
+                                CupertinoIcons.exclamationmark_circle,
+                                color: Colors.red,
+                                weight: 30,
+                                size: 30,
+                              ),
+                              leftBarIndicatorColor: Colors.red,
+                              backgroundColor: Theme.of(context)
+                                  .snackBarTheme
+                                  .backgroundColor!,
+                              titleSize: 24,
+                              title: 'Error: Invalid fact',
+                              message: 'Please follow the format: '
+                                  'variable = value',
+                              duration: const Duration(seconds: 3),
+                            ).show(context);
+                          } else {
+                            value.addFact(
+                                Clause(variable: parts[0], value: parts[2]));
+                            _inputController.clear();
+                          }
+                        },
+                        style: ButtonStyle(
+                            // backgroundColor: MaterialStateProperty.all<Color>(
+                            //     const Color.fromARGB(255, 14, 15, 22)),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.blue),
+                            overlayColor: MaterialStateProperty.all<Color>(
+                                const Color.fromARGB(50, 33, 149, 243))),
+                        child: const Text('Add fact'),
+                      ),
+                      const SizedBox(
+                        width: 25,
+                      ),
                     ],
                   ),
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'Facts: ',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            ),
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color.fromARGB(255, 246, 160, 12)),
+                                    overlayColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color.fromARGB(
+                                                50, 128, 83, 6))),
+                                onPressed: () {
+                                  value.infer();
+                                },
+                                child: const Text('Infer facts')),
+                            ElevatedButton(
+                                onPressed: () {
+                                  value.knowledgeBase.clearFacts();
+                                },
+                                child: const Text('Clear facts')),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          height: 500,
+                          width: double.infinity,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: value.getFacts().length,
+                            itemBuilder: (context, index) {
+                              return Text(value.getFacts()[index].toString());
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: Consumer<Engine>(
-        builder: (buildContext, value, child) => FloatingActionButton(
-          // backgroundColor: Colors.blue,
+        floatingActionButton: FloatingActionButton(
           child: const Icon(
-            Icons.check,
+            CupertinoIcons.gear,
             size: 40,
-            color: Colors.white,
+            color: borderColor,
           ),
           onPressed: () {
             Rule rule = Rule(name: 'Bicycle');
@@ -251,11 +192,12 @@ class _HomePageState extends State<HomePage> {
             rule.setConsequent(Clause(variable: 'vehicle', value: 'Tricycle'));
             value.addRule(rule);
             rule = Rule(name: 'Sedan');
-            rule.addAntecedent(Clause(variable: "vehicleType", value: "automobile"));
+            rule.addAntecedent(
+                Clause(variable: "vehicleType", value: "automobile"));
             rule.addAntecedent(Clause(variable: "num_doors", value: "4"));
             rule.addAntecedent(Clause(variable: "size", value: "medium"));
             rule.setConsequent(Clause(variable: 'vehicle', value: 'Sedan'));
-            value.addRule(rule); 
+            value.addRule(rule);
 
             value.addFact(Clause(variable: 'num_wheels', value: '3'));
             value.addFact(Clause(variable: 'motor', value: 'no'));

@@ -23,15 +23,15 @@ class ToolBar extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               PopupMenuButton(
-                tooltip: null,
-                padding: EdgeInsets.all(0),
-                offset: Offset(0, 30),
-                child: TextButton(
-                  child: Text('File'),
+                tooltip: '',
+                padding: const EdgeInsets.all(0),
+                offset: const Offset(0, 30),
+                child: const TextButton(
                   onPressed: null,
+                  child: Text('File'),
                 ),
                 itemBuilder: (itemBuilder) {
-                  return [
+                  return const [
                     PopupMenuItem(height: 30, child: Text("Open")),
                     PopupMenuItem(height: 30, child: Text("Save")),
                     PopupMenuItem(height: 30, child: Text("Exit")),

@@ -5,6 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class MyThemes {
   static final primaryColor = Colors.red.shade300;
 
+  // ! ====================================================================================================================
+  // ? !!!!!!!!!!!!!!!!! DARK THEEEEEEEEEEME !!!!!!!!!!!!!!!!! 
+  // ! ====================================================================================================================
   static final darkTheme = ThemeData(
     primaryColor: primary,
     useMaterial3: true,
@@ -12,6 +15,11 @@ class MyThemes {
       color: veryDarkBlue,
       surfaceTintColor: veryDarkBlue,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+    ),
+
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: veryDarkBlue,
+      contentTextStyle: TextStyle(color: Colors.white),
     ),
 
     appBarTheme: const AppBarTheme(
@@ -30,8 +38,8 @@ class MyThemes {
     tabBarTheme: TabBarTheme(
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white.withOpacity(0.2)),
-    // floatingActionButtonTheme:
-    //     const FloatingActionButtonThemeData(backgroundColor: primary),
+    floatingActionButtonTheme:
+        const FloatingActionButtonThemeData(backgroundColor: veryDarkBlue),
 
     listTileTheme:
         const ListTileThemeData(textColor: Colors.white, tileColor: darkerBlue),
@@ -49,7 +57,9 @@ class MyThemes {
     
   );
 
-  // ? LIGHT THEEEEEEEME !!!!!!!!!
+  // ! ====================================================================================================================
+  // ?            !!!!!!!!!!!! LIGHT THEEEEEEEME !!!!!!!!!
+  // ! ====================================================================================================================
   static final lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: Colors.white,
@@ -61,6 +71,11 @@ class MyThemes {
     ),
     colorScheme: const ColorScheme.light(primary: primary),
     dividerColor: Colors.black,
+
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: Colors.white,
+      contentTextStyle: TextStyle(color: Colors.black),
+    ),
 
     tabBarTheme: TabBarTheme(
         labelColor: Colors.black,
