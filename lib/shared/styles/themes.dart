@@ -39,7 +39,7 @@ class MyThemes {
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white.withOpacity(0.2)),
     floatingActionButtonTheme:
-        const FloatingActionButtonThemeData(backgroundColor: veryDarkBlue),
+        const FloatingActionButtonThemeData(backgroundColor: veryDarkBlue, foregroundColor: Colors.white),
 
     listTileTheme:
         const ListTileThemeData(textColor: Colors.white, tileColor: darkerBlue),
@@ -54,6 +54,9 @@ class MyThemes {
       foregroundColor: MaterialStateProperty.all(Colors.white),
     )),
 
+    dialogTheme: DialogTheme(
+      surfaceTintColor: veryDarkBlue
+    ),
     
   );
 
@@ -80,6 +83,7 @@ class MyThemes {
     tabBarTheme: TabBarTheme(
         labelColor: Colors.black,
         unselectedLabelColor: Colors.black.withOpacity(0.3)),
+    
     navigationRailTheme: NavigationRailThemeData(
         elevation: 20,
         selectedIconTheme: const IconThemeData(color: Colors.white),
@@ -88,6 +92,10 @@ class MyThemes {
 
     listTileTheme: const ListTileThemeData(textColor: Colors.black),
     // cardColor: Colors.grey.shade200,
+    
+    floatingActionButtonTheme:
+        const FloatingActionButtonThemeData(backgroundColor: veryDarkBlue, foregroundColor: Colors.white),
+    
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
       foregroundColor: MaterialStateProperty.all(Colors.black),

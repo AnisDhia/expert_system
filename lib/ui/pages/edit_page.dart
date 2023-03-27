@@ -11,14 +11,18 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  // late List<Rule> rules;
-  // late List<Clause> facts;
+  late ScrollController scrollController;
 
   @override
   void initState() {
     super.initState();
-    // rules = widget.engine.rules;
-    // facts = widget.engine.knowledgeBase.getFacts();
+    scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -26,84 +30,44 @@ class _EditPageState extends State<EditPage> {
     return Consumer<Engine>(
       builder: (buildContext, value, child) => Scaffold(
         body: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
+          controller: scrollController,
+          physics: const ScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Text('Rules'),
-                      Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    width: 500,
-                                    height: 500,
-                                    child: ListView.builder(
-                                      itemBuilder: (itemBuilder, index) {
-                                        return Text(
-                                            value.rules[index].toString());
-                                      },
-                                      itemCount: value.rules.length,
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 500,
-                                    width: 500,
-                                    color: Colors.red,
-                                  ),
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                children: [
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text('Add New Rules'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                children: const [Text('Antecedents')],
+                              ),
+                              Column(
+                                children: const [
+                                  Text('Consequent'),
+                                  Expanded(
+                                      child: TextField(
+                                    decoration: InputDecoration(
+                                        hintText:
+                                            'Enter a consequent clause (variable(= or match) value)'),
+                                  ))
                                 ],
-                              ))),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Text('Facts'),
-                      Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                children: [
-                                  // ? THAT DAMN BUTTON I KEEP LOOKING FOR
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            value.knowledgeBase.clearFacts();
-                                          },
-                                          icon: const Icon(Icons.refresh))
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 500,
-                                    height: 500,
-                                    child: ListView.builder(
-                                      itemBuilder: (itemBuilder, index) {
-                                        return Text(
-                                            '${value.knowledgeBase.getFacts()[index].variable} = ${value.knowledgeBase.getFacts()[index].value}');
-                                      },
-                                      itemCount:
-                                          value.knowledgeBase.getFacts().length,
-                                    ),
-                                  ),
-                                ],
-                              ))),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              )),
         ),
       ),
     );

@@ -20,7 +20,7 @@ class EqualsClause extends Clause {
       } else {
         return IntersectionType.mutuallyExclusive;
       }
-    } else if (rhs is RegexMatchClause) {
+    } else if (rhs is RegexClause) {
       var rhs2 = rhs;
       return rhs2.intersect(this);
     } 

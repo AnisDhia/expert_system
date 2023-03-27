@@ -1,4 +1,3 @@
-import 'package:expert_system/shared/styles/colors.dart';
 import 'package:expert_system/shared/styles/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,22 +21,27 @@ class _HomePageState extends State<SettingsPage> {
             ListTile(
               leading: const Icon(CupertinoIcons.moon_stars),
               title: const Text('Dark Mode'),
-              // subtitle: const Text('hint'),
               trailing:
                   Consumer<ThemeNotifier>(builder: (context, value, child) {
-                return Switch(value: value.darkTheme, onChanged: (newValue) {value.toggleTheme();});}
-              //   CupertinoSwitch(
-              //       activeColor: primary,
-              //       value: value.darkTheme,
-              //       onChanged: (newValue) {
-              //         value.toggleTheme();
-              //       });
-              // }
+                return Switch(
+                    value: value.darkTheme,
+                    onChanged: (newValue) {
+                      value.toggleTheme();
+                    });
+              }),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(CupertinoIcons.globe),
+              title: const Text('Language'),
+              trailing: DropdownButton<String>(
+                items: const [
+                  DropdownMenuItem(child: Text('English')),
+                ],
+                onChanged: (value) {},
               ),
-              onTap: () {
-                print('list tile clicked');
-              },
-            )
+              onTap: () {},
+            ),
           ],
         ),
       ),

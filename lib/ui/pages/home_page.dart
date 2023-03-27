@@ -3,9 +3,13 @@ import 'package:expert_system/engine/clauses/clause.dart';
 import 'package:expert_system/engine/engine.dart';
 import 'package:expert_system/engine/rule.dart';
 import 'package:expert_system/shared/styles/colors.dart';
+import 'package:expert_system/shared/utils/validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../engine/clauses/equals_clause.dart';
+import '../../engine/clauses/regex_clause.dart';
 
 class HomePage extends StatefulWidget {
   // final Engine engine;
@@ -69,30 +73,24 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          List<String> parts =
-                              _inputController.text.toLowerCase().split(' ');
-                          if (parts.length != 3) {
-                            await Flushbar(
-                              shouldIconPulse: true,
-                              icon: const Icon(
-                                CupertinoIcons.exclamationmark_circle,
-                                color: Colors.red,
-                                weight: 30,
-                                size: 30,
-                              ),
-                              leftBarIndicatorColor: Colors.red,
-                              backgroundColor: Theme.of(context)
-                                  .snackBarTheme
-                                  .backgroundColor!,
-                              titleSize: 24,
-                              title: 'Error: Invalid fact',
-                              message: 'Please follow the format: '
-                                  'variable = value',
-                              duration: const Duration(seconds: 3),
-                            ).show(context);
+                          List<String> parts = _inputController.text
+                              .toLowerCase()
+                              .split(RegExp(r'=|match'));
+                          if (parts.length != 2) {
+                            _showFlushBar('Error: Invalid fact',
+                                'Please follow the format: variable (= or match) value');
                           } else {
-                            value.addFact(
-                                Clause(variable: parts[0], value: parts[2]));
+                            if (_inputController.text.contains('match')) {
+                              value.addFact(RegexClause(
+                                  parts[0].trim(), parts[1].trim()));
+                            } else if (_inputController.text.contains('=')) {
+                              value.addFact(EqualsClause(
+                                  variable: parts[0].trim(),
+                                  value: parts[1].trim()));
+                            } else {
+                              _showFlushBar('Error: Invalid fact',
+                                  'Please follow the format: variable (= or match) value');
+                            }
                             _inputController.clear();
                           }
                         },
@@ -134,15 +132,18 @@ class _HomePageState extends State<HomePage> {
                                 style: ButtonStyle(
                                     foregroundColor:
                                         MaterialStateProperty.all<Color>(
-                                            const Color.fromARGB(255, 246, 160, 12)),
-                                    overlayColor:
-                                        MaterialStateProperty.all<Color>(
                                             const Color.fromARGB(
-                                                50, 128, 83, 6))),
+                                                255, 246, 160, 12)),
+                                    overlayColor: MaterialStateProperty.all<
+                                            Color>(
+                                        const Color.fromARGB(50, 128, 83, 6))),
                                 onPressed: () {
                                   value.infer();
                                 },
                                 child: const Text('Infer facts')),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             ElevatedButton(
                                 onPressed: () {
                                   value.knowledgeBase.clearFacts();
@@ -180,32 +181,31 @@ class _HomePageState extends State<HomePage> {
           ),
           onPressed: () {
             Rule rule = Rule(name: 'Bicycle');
-            rule.addAntecedent(Clause(variable: "vehicleType", value: "cycle"));
-            rule.addAntecedent(Clause(variable: "num_wheels", value: "2"));
-            rule.addAntecedent(Clause(variable: "motor", value: "no"));
-            rule.setConsequent(Clause(variable: "vehicle", value: 'Bicycle'));
+            rule.addAntecedent(
+                EqualsClause(variable: "vehicletype", value: "cycle"));
+            rule.addAntecedent(
+                EqualsClause(variable: "num_wheels", value: "2"));
+            rule.addAntecedent(EqualsClause(variable: "motor", value: "no"));
+            rule.setConsequent(
+                EqualsClause(variable: "vehicle", value: 'Bicycle'));
             value.addRule(rule);
             rule = Rule(name: 'Tricycle');
-            rule.addAntecedent(Clause(variable: "vehicleType", value: "cycle"));
-            rule.addAntecedent(Clause(variable: "num_wheels", value: "3"));
-            rule.addAntecedent(Clause(variable: "motor", value: "no"));
-            rule.setConsequent(Clause(variable: 'vehicle', value: 'Tricycle'));
+            rule.addAntecedent(
+                EqualsClause(variable: "vehicletype", value: "cycle"));
+            rule.addAntecedent(
+                EqualsClause(variable: "num_wheels", value: "3"));
+            rule.addAntecedent(EqualsClause(variable: "motor", value: "no"));
+            rule.setConsequent(
+                EqualsClause(variable: 'vehicle', value: 'Tricycle'));
             value.addRule(rule);
             rule = Rule(name: 'Sedan');
             rule.addAntecedent(
-                Clause(variable: "vehicleType", value: "automobile"));
-            rule.addAntecedent(Clause(variable: "num_doors", value: "4"));
-            rule.addAntecedent(Clause(variable: "size", value: "medium"));
-            rule.setConsequent(Clause(variable: 'vehicle', value: 'Sedan'));
+                RegexClause("vehicletype", "automobile and car"));
+            rule.addAntecedent(EqualsClause(variable: "num_doors", value: "4"));
+            rule.addAntecedent(EqualsClause(variable: "size", value: "medium"));
+            rule.setConsequent(
+                EqualsClause(variable: 'vehicle', value: 'Sedan'));
             value.addRule(rule);
-
-            value.addFact(Clause(variable: 'num_wheels', value: '3'));
-            value.addFact(Clause(variable: 'motor', value: 'no'));
-            value.addFact(Clause(variable: 'vehicleType', value: 'cycle'));
-
-            print('before inference ${value.getFacts()}');
-            value.infer();
-            print('after inference ${value.getFacts()}');
 
             scrollController.animateTo(0,
                 duration: const Duration(seconds: 1), curve: Curves.easeIn);
@@ -213,6 +213,24 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  _showFlushBar(String title, String message) async {
+    await Flushbar(
+      shouldIconPulse: true,
+      icon: const Icon(
+        CupertinoIcons.exclamationmark_circle,
+        color: Colors.red,
+        weight: 30,
+        size: 30,
+      ),
+      leftBarIndicatorColor: Colors.red,
+      backgroundColor: Theme.of(context).snackBarTheme.backgroundColor!,
+      titleSize: 24,
+      title: title,
+      message: message,
+      duration: const Duration(seconds: 3),
+    ).show(context);
   }
 }
 

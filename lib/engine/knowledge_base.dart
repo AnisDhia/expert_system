@@ -1,3 +1,4 @@
+import 'package:expert_system/engine/types/intersection.dart';
 import 'package:flutter/material.dart';
 
 import 'clauses/clause.dart';
@@ -24,7 +25,7 @@ class KnowledgeBase {
 
   bool isFact(Clause c) {
     for(Clause fact in facts) {
-      if(fact.value == c.value) {
+      if(fact.matchClause(c) == IntersectionType.inclusive) {
         return true;
       }
     }
