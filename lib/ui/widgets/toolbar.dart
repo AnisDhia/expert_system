@@ -55,12 +55,18 @@ class _ToolBarState extends State<ToolBar> {
                           height: 30,
                           child: const Text("Open")),
                       PopupMenuItem(
-                          onTap: () {
-                            _saveFile(value);
+                          onTap: () async {
+                            await _saveFile(value);
+                            _showFlushBar('Saved', 'Engine saved into JSON file', Colors.blue, CupertinoIcons.checkmark_circle);
                           },
                           height: 30,
                           child: const Text("Save")),
-                      const PopupMenuItem(height: 30, child: Text("Exit")),
+                      PopupMenuItem(
+                          onTap: () {
+                            exit(0);
+                          },
+                          height: 30,
+                          child: const Text("Exit")),
                     ];
                   },
                 ),
@@ -77,16 +83,16 @@ class _ToolBarState extends State<ToolBar> {
     });
   }
 
-  _showFlushBar(String title, String message) async {
+  _showFlushBar(String title, String message, Color color, IconData icon) async {
     await Flushbar(
       shouldIconPulse: true,
-      icon: const Icon(
-        CupertinoIcons.exclamationmark_circle,
-        color: Colors.red,
+      icon: Icon(
+        icon,
+        color: color,
         weight: 30,
         size: 30,
       ),
-      leftBarIndicatorColor: Colors.red,
+      leftBarIndicatorColor: color,
       backgroundColor: Theme.of(context).snackBarTheme.backgroundColor!,
       titleSize: 24,
       title: title,
@@ -100,7 +106,7 @@ class _ToolBarState extends State<ToolBar> {
         .pickFiles(type: FileType.custom, allowedExtensions: ['json']);
 
     if (result == null) {
-      _showFlushBar('Error', 'No file selected');
+      _showFlushBar('Error', 'No file selected', Colors.red, CupertinoIcons.exclamationmark_circle);
       return null;
     }
     final path = result.files.single.path!;
@@ -109,9 +115,8 @@ class _ToolBarState extends State<ToolBar> {
     return jsonData;
   }
 
-  void _saveFile(Engine engine) async {
+  _saveFile(Engine engine) async {
     final jasonString = engine.toJSON();
-    print(jasonString);
     String? outputFile = await FilePicker.platform.saveFile(
       dialogTitle: 'Please select an output file:',
       fileName: 'engine.json',
@@ -121,7 +126,7 @@ class _ToolBarState extends State<ToolBar> {
 
     if (outputFile == null) {
       // User canceled the picker
-      _showFlushBar('Error', 'No path selected');
+      _showFlushBar('Error', 'No path selected', Colors.red, CupertinoIcons.exclamationmark_circle);
       return;
     } else {
       final file = File(outputFile);

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:expert_system/engine/clauses/clause.dart';
 import 'package:expert_system/engine/knowledge_base.dart';
 
@@ -6,8 +8,10 @@ class Rule {
   Clause? consequent;
   bool fired = false;
   String name;
+  VoidCallback? callback;
 
-  Rule({required this.name, required this.antecedents, this.consequent});
+
+  Rule({this.callback, required this.name, required this.antecedents, this.consequent});
 
   String getName() {
     return name;
@@ -39,6 +43,7 @@ class Rule {
       knowledgeBase.addFact(consequent!);
     }
     fired = true;
+    if(callback != null) callback!();
   }
 
   bool isTriggered(KnowledgeBase knowledgeBase) {

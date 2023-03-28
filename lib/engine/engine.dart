@@ -15,14 +15,23 @@ import 'clauses/clause.dart';
 // }
 
 class Engine extends ChangeNotifier {
+  List<String> logs = [];
   List<Rule> rules = [];
   KnowledgeBase knowledgeBase = KnowledgeBase();
   Engine() {
     knowledgeBase.callback = () => notifyListeners();
+    for (Rule rule in rules) {
+      rule.callback = () => notifyListeners();
+    }
   }
 
   void addRule(Rule rule) {
     rules.add(rule);
+    notifyListeners();
+  }
+
+  void removeRule(Rule rule) {
+    rules.remove(rule);
     notifyListeners();
   }
 
@@ -58,8 +67,10 @@ class Engine extends ChangeNotifier {
     for (Rule rule in rules) {
       if (rule.isTriggered(knowledgeBase)) {
         cs.add(rule);
+        logs.add('Rule ${rule.getName()} is triggered');
       }
     }
+    notifyListeners();
     return cs;
   }
 
@@ -69,8 +80,10 @@ class Engine extends ChangeNotifier {
       if (!rule.isFired()) {
         hasRules = true;
         rule.fire(knowledgeBase);
+        logs.add('Rule ${rule.getName()} is fired');
       }
     }
+    notifyListeners();
     return hasRules;
   }
 
@@ -85,6 +98,11 @@ class Engine extends ChangeNotifier {
     rules = List<Rule>.from(
         json['rules'].map((ruleJson) => Rule.fromJSON(ruleJson)));
     knowledgeBase.loadFromJSON(json['knowledgeBase']);
+    logs.add('Engine loaded from JSON');
     notifyListeners();
+  }
+
+  List<String> getLogs() {
+    return logs;
   }
 }

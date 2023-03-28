@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../../engine/clauses/equals_clause.dart';
 import '../../engine/clauses/regex_clause.dart';
-import '../../shared/styles/colors.dart';
 
 class EditPage extends StatefulWidget {
   // final Engine engine;
@@ -272,7 +271,7 @@ class _EditPageState extends State<EditPage> {
                                   return;
                                 } else {
                                   setState(() {
-                                    _rule.name = _ruleNameController.text;
+                                    _rule.name = _ruleNameController.text == "" ? '#${value.rules.length+1}' : _ruleNameController.text;
                                     value.addRule(_rule.clone());
                                     _rule.clearAntecedents();
                                     _rule.clearConsequent();
@@ -325,8 +324,20 @@ class _EditPageState extends State<EditPage> {
                             itemCount: value.rules.length,
                             itemBuilder: (context, index) {
                               return ListTile(
-                                leading: Text('${value.rules[index].name}: '),
-                                title: Text(value.rules[index].toString()),
+                                leading: Icon(
+                                  Icons.circle,
+                                  color: value.rules[index].isFired()
+                                      ? Colors.green
+                                      : Colors.red,
+                                ),
+                                title: Text('${value.rules[index].name}: '),
+                                subtitle: Text(value.rules[index].toString()),
+                                trailing: IconButton(
+                                    tooltip: 'Remove rule',
+                                    onPressed: () {
+                                      value.removeRule(value.rules[index]);
+                                    },
+                                    icon: const Icon(Icons.minimize_outlined)),
                               );
                             },
                           ),
