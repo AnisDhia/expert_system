@@ -36,11 +36,9 @@ class KnowledgeBase {
         'facts': facts.map((e) => e.toJSON()).toList(),
       };
 
-  factory KnowledgeBase.fromJSON(Map<String, dynamic> json) {
-    var facts = json['facts'] as List<dynamic>;
-    return KnowledgeBase(
-      facts: facts.map((e) => Clause.fromJSON(e)).toList(),
-    );
+  void loadFromJSON(Map<String, dynamic> json) {
+    facts = List<Clause>.from(json['facts'].map((clauseJson) => Clause.fromJSON(clauseJson)));
+    if(callback != null) callback!();
   }
   // List<String> symptoms = [
   //   fever,

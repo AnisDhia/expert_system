@@ -337,44 +337,6 @@ class _EditPageState extends State<EditPage> {
                 ],
               )),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            CupertinoIcons.gear,
-            size: 40,
-            color: borderColor,
-          ),
-          onPressed: () {
-            Rule rule = Rule(name: 'Bicycle', antecedents: []);
-            rule.addAntecedent(
-                EqualsClause(variable: "vehicletype", value: "cycle"));
-            rule.addAntecedent(
-                EqualsClause(variable: "num_wheels", value: "2"));
-            rule.addAntecedent(EqualsClause(variable: "motor", value: "no"));
-            rule.setConsequent(
-                EqualsClause(variable: "vehicle", value: 'Bicycle'));
-            value.addRule(rule);
-            rule = Rule(name: 'Tricycle', antecedents: []);
-            rule.addAntecedent(
-                EqualsClause(variable: "vehicletype", value: "cycle"));
-            rule.addAntecedent(
-                EqualsClause(variable: "num_wheels", value: "3"));
-            rule.addAntecedent(EqualsClause(variable: "motor", value: "no"));
-            rule.setConsequent(
-                EqualsClause(variable: 'vehicle', value: 'Tricycle'));
-            value.addRule(rule);
-            rule = Rule(name: 'Sedan', antecedents: []);
-            rule.addAntecedent(
-                RegexClause("vehicletype", "automobile and car"));
-            rule.addAntecedent(EqualsClause(variable: "num_doors", value: "4"));
-            rule.addAntecedent(EqualsClause(variable: "size", value: "medium"));
-            rule.setConsequent(
-                EqualsClause(variable: 'vehicle', value: 'Sedan'));
-            value.addRule(rule);
-
-            scrollController.animateTo(0,
-                duration: const Duration(seconds: 1), curve: Curves.easeIn);
-          },
-        ),
       ),
     );
   }

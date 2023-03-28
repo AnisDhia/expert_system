@@ -84,7 +84,7 @@ class Engine extends ChangeNotifier {
   void loadFromJSON(Map<String, dynamic> json) {
     rules = List<Rule>.from(
         json['rules'].map((ruleJson) => Rule.fromJSON(ruleJson)));
-    knowledgeBase = KnowledgeBase.fromJSON(json['knowledgeBase']);
+    knowledgeBase.loadFromJSON(json['knowledgeBase']);
     notifyListeners();
   }
 }
