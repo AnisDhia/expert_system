@@ -1,9 +1,5 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:expert_system/engine/clauses/clause.dart';
 import 'package:expert_system/engine/engine.dart';
-import 'package:expert_system/engine/rule.dart';
-import 'package:expert_system/shared/styles/colors.dart';
-import 'package:expert_system/shared/utils/validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -72,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () async {
+                        onPressed: () {
                           List<String> parts = _inputController.text
                               .toLowerCase()
                               .split(RegExp(r'=|match'));
@@ -95,8 +91,6 @@ class _HomePageState extends State<HomePage> {
                           }
                         },
                         style: ButtonStyle(
-                            // backgroundColor: MaterialStateProperty.all<Color>(
-                            //     const Color.fromARGB(255, 14, 15, 22)),
                             foregroundColor:
                                 MaterialStateProperty.all<Color>(Colors.blue),
                             overlayColor: MaterialStateProperty.all<Color>(
@@ -172,44 +166,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            CupertinoIcons.gear,
-            size: 40,
-            color: borderColor,
-          ),
-          onPressed: () {
-            Rule rule = Rule(name: 'Bicycle');
-            rule.addAntecedent(
-                EqualsClause(variable: "vehicletype", value: "cycle"));
-            rule.addAntecedent(
-                EqualsClause(variable: "num_wheels", value: "2"));
-            rule.addAntecedent(EqualsClause(variable: "motor", value: "no"));
-            rule.setConsequent(
-                EqualsClause(variable: "vehicle", value: 'Bicycle'));
-            value.addRule(rule);
-            rule = Rule(name: 'Tricycle');
-            rule.addAntecedent(
-                EqualsClause(variable: "vehicletype", value: "cycle"));
-            rule.addAntecedent(
-                EqualsClause(variable: "num_wheels", value: "3"));
-            rule.addAntecedent(EqualsClause(variable: "motor", value: "no"));
-            rule.setConsequent(
-                EqualsClause(variable: 'vehicle', value: 'Tricycle'));
-            value.addRule(rule);
-            rule = Rule(name: 'Sedan');
-            rule.addAntecedent(
-                RegexClause("vehicletype", "automobile and car"));
-            rule.addAntecedent(EqualsClause(variable: "num_doors", value: "4"));
-            rule.addAntecedent(EqualsClause(variable: "size", value: "medium"));
-            rule.setConsequent(
-                EqualsClause(variable: 'vehicle', value: 'Sedan'));
-            value.addRule(rule);
-
-            scrollController.animateTo(0,
-                duration: const Duration(seconds: 1), curve: Curves.easeIn);
-          },
         ),
       ),
     );

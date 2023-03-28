@@ -54,7 +54,16 @@ class MyThemes {
       foregroundColor: MaterialStateProperty.all(Colors.white),
     )),
 
-    dialogTheme: DialogTheme(
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        surfaceTintColor: MaterialStateProperty.all(veryDarkBlue),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ),
+    ),
+
+    dialogTheme: const DialogTheme(
       surfaceTintColor: veryDarkBlue
     ),
     
@@ -96,6 +105,15 @@ class MyThemes {
     floatingActionButtonTheme:
         const FloatingActionButtonThemeData(backgroundColor: veryDarkBlue, foregroundColor: Colors.white),
     
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        surfaceTintColor: MaterialStateProperty.all(Colors.white),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ),
+    ),
+
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
       foregroundColor: MaterialStateProperty.all(Colors.black),

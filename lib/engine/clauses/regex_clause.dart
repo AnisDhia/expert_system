@@ -50,4 +50,9 @@ class RegexClause extends Clause {
       return false;
     }
   }
+
+  @override
+  RegexClause clone() {
+    return RegexClause(variable, value);
+  }
 }

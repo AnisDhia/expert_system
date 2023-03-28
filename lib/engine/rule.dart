@@ -7,7 +7,7 @@ class Rule {
   bool fired = false;
   String name;
 
-  Rule({required this.name});
+  Rule({required this.name, required this.antecedents, this.consequent});
 
   String getName() {
     return name;
@@ -21,8 +21,17 @@ class Rule {
     this.consequent = consequent;
   }
 
+  void clearConsequent() {
+    consequent = null;
+  }
+
+  // adds an antecedent to the rule
   void addAntecedent(Clause antecedent) {
     antecedents.add(antecedent);
+  }
+
+  void clearAntecedents() {
+    antecedents.clear();
   }
 
   void fire(KnowledgeBase knowledgeBase) {
@@ -53,5 +62,12 @@ class Rule {
     }
     antecedentsString = antecedentsString.substring(0, antecedentsString.length - 5);
     return "IF $antecedentsString THEN ${consequent.toString()}";
+  }
+
+  // function to copy a rule
+  Rule clone() {
+    List<Clause> antecedentsClone = antecedents.map((a) => a.clone()).toList();
+    Clause? consequentClone = consequent?.clone();
+    return Rule(name: name, antecedents: antecedentsClone, consequent: consequentClone);
   }
 }

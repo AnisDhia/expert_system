@@ -46,4 +46,8 @@ class Clause {
   String toString() {
     return "$variable $condition $value";
   }
+
+  Clause clone() {
+    return Clause(variable: variable, value: value, condition: condition);
+  }
 }

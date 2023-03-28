@@ -75,4 +75,9 @@ class EqualsClause extends Clause {
     //   return IntersectionType.unknown;
     // }
   }
+
+  @override
+  Clause clone() {
+    return EqualsClause(variable: variable, value: value);
+  }
 }
