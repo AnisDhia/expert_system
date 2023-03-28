@@ -42,8 +42,8 @@ class Rule {
   }
 
   bool isTriggered(KnowledgeBase knowledgeBase) {
-    for(Clause antecedent in antecedents){
-      if(!knowledgeBase.isFact(antecedent)){
+    for (Clause antecedent in antecedents) {
+      if (!knowledgeBase.isFact(antecedent)) {
         return false;
       }
     }
@@ -60,7 +60,8 @@ class Rule {
     for (Clause antecedent in antecedents) {
       antecedentsString += "${antecedent.toString()} AND ";
     }
-    antecedentsString = antecedentsString.substring(0, antecedentsString.length - 5);
+    antecedentsString =
+        antecedentsString.substring(0, antecedentsString.length - 5);
     return "IF $antecedentsString THEN ${consequent.toString()}";
   }
 
@@ -68,6 +69,29 @@ class Rule {
   Rule clone() {
     List<Clause> antecedentsClone = antecedents.map((a) => a.clone()).toList();
     Clause? consequentClone = consequent?.clone();
-    return Rule(name: name, antecedents: antecedentsClone, consequent: consequentClone);
+    return Rule(
+        name: name, antecedents: antecedentsClone, consequent: consequentClone);
+  }
+
+  Map<String, dynamic> toJSON() {
+    return {
+      'name': name,
+      'antecedents': antecedents.map((clause) => clause.toJSON()).toList(),
+      'consequent': consequent?.toJSON(),
+      'fired': fired,
+    };
+  }
+
+  static Rule fromJSON(Map<String, dynamic> json) {
+    final rule = Rule(
+      name: json['name'],
+      antecedents: List<Clause>.from(
+          json['antecedents'].map((clauseJson) => Clause.fromJSON(clauseJson))),
+      consequent: json['consequent'] != null
+          ? Clause.fromJSON(json['consequent'])
+          : null,
+    );
+    rule.fired = json['fired'];
+    return rule;
   }
 }

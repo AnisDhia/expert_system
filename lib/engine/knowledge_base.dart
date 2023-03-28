@@ -7,7 +7,7 @@ class KnowledgeBase {
   List<Clause> facts = [];
   VoidCallback? callback;
 
-  KnowledgeBase({this.callback});
+  KnowledgeBase({this.callback, List<Clause>? facts}) : facts = facts ?? [];
 
   void addFact(Clause fact) {
     facts.add(fact);
@@ -30,6 +30,17 @@ class KnowledgeBase {
       }
     }
     return false;
+  }
+
+  Map<String, dynamic> toJSON() => {
+        'facts': facts.map((e) => e.toJSON()).toList(),
+      };
+
+  factory KnowledgeBase.fromJSON(Map<String, dynamic> json) {
+    var facts = json['facts'] as List<dynamic>;
+    return KnowledgeBase(
+      facts: facts.map((e) => Clause.fromJSON(e)).toList(),
+    );
   }
   // List<String> symptoms = [
   //   fever,

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 // import 'package:expert_system/models/person.dart';
 // import 'dart:math';
 
-
 import 'clauses/clause.dart';
 
 // class BinaryNode<T> {
@@ -15,7 +14,7 @@ import 'clauses/clause.dart';
 //   BinaryNode<T>? noChild;
 // }
 
-class Engine extends ChangeNotifier{
+class Engine extends ChangeNotifier {
   List<Rule> rules = [];
   KnowledgeBase knowledgeBase = KnowledgeBase();
   Engine() {
@@ -27,48 +26,47 @@ class Engine extends ChangeNotifier{
     notifyListeners();
   }
 
-
   void clearRules() {
     rules.clear();
     notifyListeners();
   }
 
-  void addFact(Clause fact){
+  void addFact(Clause fact) {
     knowledgeBase.addFact(fact);
     notifyListeners();
   }
 
-  List<Clause> getFacts(){
+  List<Clause> getFacts() {
     return knowledgeBase.getFacts();
   }
 
-  void infer(){
+  void infer() {
     List<Rule>? cs;
-    do{
+    do {
       cs = match();
-      if(cs.isNotEmpty){
-        if(!fireRules(cs)){
+      if (cs.isNotEmpty) {
+        if (!fireRules(cs)) {
           break;
         }
       }
-    }while(cs.isNotEmpty);
+    } while (cs.isNotEmpty);
     notifyListeners();
   }
 
-  List<Rule> match(){
+  List<Rule> match() {
     List<Rule> cs = [];
-    for(Rule rule in rules){
-      if(rule.isTriggered(knowledgeBase)){
+    for (Rule rule in rules) {
+      if (rule.isTriggered(knowledgeBase)) {
         cs.add(rule);
       }
     }
     return cs;
-  } 
+  }
 
-  bool fireRules(List<Rule> rules){
+  bool fireRules(List<Rule> rules) {
     bool hasRules = false;
-    for(Rule rule in rules){
-      if(!rule.isFired()){
+    for (Rule rule in rules) {
+      if (!rule.isFired()) {
         hasRules = true;
         rule.fire(knowledgeBase);
       }
@@ -76,33 +74,17 @@ class Engine extends ChangeNotifier{
     return hasRules;
   }
 
-  // addIllness(Illness newIllness) {
-  //   knowledgeBase.illnesses.add(newIllness);
-  // }
+  Map<String, dynamic> toJSON() {
+    return {
+      'rules': rules.map((rule) => rule.toJSON()).toList(),
+      'knowledgeBase': knowledgeBase.toJSON(),
+    };
+  }
 
-  // Illness match(Person person) {
-  //    implement matching algorithm
-
-  //   int greatestMatchIndex = 0;
-  //   List<int> matchesParIllness = List.filled(knowledgeBase.illnesses.length, 0);
-    
-  //   int index = 0;
-  //   for (var illness in knowledgeBase.illnesses) {
-  //     int numberOfMatches = 0;
-  //     for (var symptom in person.symptoms) {
-  //       if (illness.symptoms.contains(symptom)) {
-  //         numberOfMatches++;
-  //       } 
-  //     }
-  //     matchesParIllness[index] = numberOfMatches;
-  //     greatestMatchIndex = matchesParIllness[greatestMatchIndex] < matchesParIllness[index] ?
-  //       index : greatestMatchIndex;
-  //     index++;
-  //   }
-    
-    
-  //   return knowledgeBase.illnesses[greatestMatchIndex];
-  // }
-
-  
+  void loadFromJSON(Map<String, dynamic> json) {
+    rules = List<Rule>.from(
+        json['rules'].map((ruleJson) => Rule.fromJSON(ruleJson)));
+    knowledgeBase = KnowledgeBase.fromJSON(json['knowledgeBase']);
+    notifyListeners();
+  }
 }

@@ -171,6 +171,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // TODO move this to a separate class
   _showFlushBar(String title, String message) async {
     await Flushbar(
       shouldIconPulse: true,
@@ -187,31 +188,5 @@ class _HomePageState extends State<HomePage> {
       message: message,
       duration: const Duration(seconds: 3),
     ).show(context);
-  }
-}
-
-class MySearchDelegate extends SearchDelegate {
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    // TODO: implement buildActions
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw UnimplementedError();
   }
 }

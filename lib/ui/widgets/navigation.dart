@@ -1,4 +1,3 @@
-import 'package:expert_system/engine/engine.dart';
 import 'package:expert_system/ui/pages/edit_page.dart';
 import 'package:expert_system/ui/pages/home_page.dart';
 import 'package:expert_system/ui/pages/settings_page.dart';
@@ -16,18 +15,15 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   int _selectedIndex = 0;
   late PageController _pageController;
-  // Engine engine = Engine();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _pageController = PageController(initialPage: 0);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _pageController.dispose();
   }
@@ -79,10 +75,10 @@ class _NavigationState extends State<Navigation> {
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
                 // index: _selectedIndex,
-                children: [
+                children: const [
                   HomePage(),
                   EditPage(),
-                  const SettingsPage(),
+                  SettingsPage(),
                 ],
               ))
             ],
