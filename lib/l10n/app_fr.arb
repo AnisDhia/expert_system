@@ -1,0 +1,40 @@
+{
+    "helloWorld": "Bonjour le monde",
+
+    "file": "fichier",
+    "open": "ouvrir",
+    "save": "sauver",
+    "exit": "exit",
+
+    "home": "Accueil",
+    "editRules": "Modifier les règles",
+    "settings": "Paramètres",
+
+    "darkMode": "Mode nuit",
+    "language": "Langue",
+
+    "help": "Aide",
+    "about": "Sur",
+    "guide": "Guide",
+
+    "facts": "Les faits",
+    "rules": "Les règles",
+    "addFact": "Ajouter un fait",
+    "clearFacts": "Effacer les faits",
+    "inferFacts": "Inférer les faits",
+    "inputFactHere": "Entrez le fait ici",
+
+    "addNewRules": "Ajouter des règles",
+    "ruleName": "Nom de la règle",
+    "antecedents": "Antécédents",
+    "addAntecedent": "Ajouter un antécédent",
+    "clearAntecedents": "Effacer les antécédents",
+    "consequent": "Conséquent",
+    "addConsequent": "Ajouter un conséquent",
+    "addRule": "Ajouter une règle",
+    "clearRules": "Effacer les règles",
+    "enterAntecedent": "Entrez un antécédent",
+    "enterConsequent": "Entrez un conséquent",
+    "activeRules": "Règles actives",
+    "removeRule": "Supprimer la règle"
+}

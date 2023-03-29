@@ -3,6 +3,7 @@ import 'package:expert_system/engine/engine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 import '../../engine/clauses/equals_clause.dart';
 import '../../engine/clauses/regex_clause.dart';
@@ -18,16 +19,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late ScrollController scrollController;
   late TextEditingController _inputController;
-  late List<String> facts;
-  late String result;
 
   @override
   void initState() {
     super.initState();
     scrollController = ScrollController();
     _inputController = TextEditingController();
-    facts = [];
-    result = 'nothing';
   }
 
   @override
@@ -63,8 +60,8 @@ class _HomePageState extends State<HomePage> {
                           Expanded(
                             child: TextFormField(
                               controller: _inputController,
-                              decoration: const InputDecoration(
-                                hintText: 'Input your fact here',
+                              decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context)!.inputFactHere,
                                 border: InputBorder.none,
                               ),
                             ),
@@ -99,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                                         Colors.blue),
                                 overlayColor: MaterialStateProperty.all<Color>(
                                     const Color.fromARGB(50, 33, 149, 243))),
-                            child: const Text('Add fact'),
+                            child: Text(AppLocalizations.of(context)!.addFact),
                           ),
                           const SizedBox(
                             width: 25,
@@ -120,10 +117,10 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Row(
                               children: [
-                                const Expanded(
+                                Expanded(
                                   child: Text(
-                                    'Facts: ',
-                                    style: TextStyle(fontSize: 30),
+                                    '${AppLocalizations.of(context)!.facts} ',
+                                    style: const TextStyle(fontSize: 30),
                                   ),
                                 ),
                                 ElevatedButton(
@@ -139,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: () {
                                       value.infer();
                                     },
-                                    child: const Text('Infer facts')),
+                                    child: Text(AppLocalizations.of(context)!.inferFacts)),
                                 const SizedBox(
                                   width: 10,
                                 ),
@@ -147,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: () {
                                       value.knowledgeBase.clearFacts();
                                     },
-                                    child: const Text('Clear facts')),
+                                    child: Text(AppLocalizations.of(context)!.clearFacts)),
                               ],
                             ),
                             const SizedBox(
@@ -204,6 +201,9 @@ class _HomePageState extends State<HomePage> {
                         height: 10,
                       ),
                       Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
                         child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SizedBox(

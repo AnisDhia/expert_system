@@ -4,6 +4,8 @@ import 'package:expert_system/ui/pages/settings_page.dart';
 import 'package:expert_system/ui/widgets/toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/octicons_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -51,30 +53,25 @@ class _NavigationState extends State<Navigation> {
                   });
                   _pageController.jumpToPage(index);
                 },
-                destinations: const [
+                destinations: [
                   NavigationRailDestination(
-                      padding: EdgeInsets.all(16),
-                      icon: Icon(Octicons.repo),
-                      label: Text('Home')),
+                      padding: const EdgeInsets.all(16),
+                      icon: const Icon(Octicons.repo),
+                      label: Text(AppLocalizations.of(context)!.home)),
                   NavigationRailDestination(
-                      padding: EdgeInsets.all(16),
-                      icon: Icon(Icons.edit),
-                      label: Text('Edit')),
+                      padding: const EdgeInsets.all(16),
+                      icon: const Icon(Icons.edit),
+                      label: Text(AppLocalizations.of(context)!.editRules)),
                   NavigationRailDestination(
-                      padding: EdgeInsets.all(16),
-                      icon: Icon(Octicons.settings),
-                      label: Text('Settings')),
+                      padding: const EdgeInsets.all(16),
+                      icon: const Icon(Octicons.settings),
+                      label: Text(AppLocalizations.of(context)!.settings)),
                 ],
               ),
-              // const VerticalDivider(
-              //   thickness: 1,
-              //   width: 1,
-              // ),
               Expanded(
                   child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
-                // index: _selectedIndex,
                 children: const [
                   HomePage(),
                   EditPage(),

@@ -1,0 +1,42 @@
+{
+    "helloWorld": "Hello World",
+    "@helloworld": {
+        "description": "The conventional newborn programmer greeting"
+    },
+    "file": "File",
+    "open": "Open",
+    "save": "Save",
+    "exit": "Exit",
+
+    "home": "Home",
+    "editRules": "Edit Rules",
+    "settings": "Settings",
+
+    "darkMode": "Dark Mode",
+    "language": "Language",
+
+    "help": "Help",
+    "about": "About",
+    "guide": "Guide",
+
+    "facts": "Facts",
+    "rules": "Rules",
+    "addFact": "Add Fact",
+    "clearFacts": "Clear Facts",
+    "inferFacts": "Infer Facts",
+    "inputFactHere": "Input fact here",
+
+    "addNewRules": "Add New Rules",
+    "ruleName": "Rule Name",
+    "antecedents": "Antecedents",
+    "addAntecedent": "Add Antecedent",
+    "clearAntecedents": "Clear Antecedents",
+    "consequent": "Consequent",
+    "addConsequent": "Add Consequent",
+    "addRule": "Add Rule",
+    "clearRules": "Clear Rules",
+    "enterAntecedent": "Enter an antecedent clause",
+    "enterConsequent": "Enter a consequent clause",
+    "activeRules": "Active Rules",
+    "removeRule": "Remove Rule"
+}

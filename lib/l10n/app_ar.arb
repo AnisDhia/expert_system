@@ -1,0 +1,40 @@
+{
+    "helloWorld": "مرحبا بالعالم",
+
+    "file": "ملف",
+    "open": "فتح",
+    "save": "حفظ",
+    "exit": "خروج",
+
+    "home": "الصفحة الرئيسية",
+    "editRules": "تحرير القواعد",
+    "settings": "الإعدادات",
+
+    "darkMode": "مظهر داكن",
+    "language": "اللغة",
+
+    "help": "مساعدة",
+    "about": "حول",
+    "guide": "مرشد",
+
+    "facts": "الحقائق",
+    "rules": "القواعد",
+    "addFact": "إضافة حقيقة",
+    "clearFacts": "مسح الحقائق",
+    "inferFacts": "تفسير الحقائق",
+    "inputFactHere": "أدخل الحقيقة هنا",
+
+    "addNewRules": "إضافة قواعد جديدة",
+    "ruleName": "اسم القاعدة",
+    "antecedents": "المتسببات",
+    "addAntecedent": "إضافة متسبب",
+    "clearAntecedents": "مسح المتسببات",
+    "consequent": "النتيجة",
+    "addConsequent": "إضافة نتيجة",
+    "addRule": "إضافة قاعدة",
+    "clearRules": "مسح القواعد",
+    "enterAntecedent": "أدخل متسبب",
+    "enterConsequent": "أدخل نتيجة",
+    "activeRules": "القواعد النشطة",
+    "removeRule": "إزالة القاعدة"
+}

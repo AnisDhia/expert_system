@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
@@ -39,9 +40,9 @@ class _ToolBarState extends State<ToolBar> {
                   tooltip: '',
                   padding: const EdgeInsets.all(0),
                   offset: const Offset(0, 30),
-                  child: const TextButton(
+                  child: TextButton(
                     onPressed: null,
-                    child: Text('File'),
+                    child: Text(AppLocalizations.of(context)!.file),
                   ),
                   itemBuilder: (itemBuilder) {
                     return [
@@ -53,20 +54,49 @@ class _ToolBarState extends State<ToolBar> {
                             }
                           },
                           height: 30,
-                          child: const Text("Open")),
+                          child: Text(AppLocalizations.of(context)!.open)),
                       PopupMenuItem(
                           onTap: () async {
                             await _saveFile(value);
-                            _showFlushBar('Saved', 'Engine saved into JSON file', Colors.blue, CupertinoIcons.checkmark_circle);
+                            _showFlushBar(
+                                'Saved',
+                                'Engine saved into JSON file',
+                                Colors.blue,
+                                CupertinoIcons.checkmark_circle);
                           },
                           height: 30,
-                          child: const Text("Save")),
+                          child: Text(AppLocalizations.of(context)!.save)),
                       PopupMenuItem(
                           onTap: () {
                             exit(0);
                           },
                           height: 30,
-                          child: const Text("Exit")),
+                          child: Text(AppLocalizations.of(context)!.exit)),
+                    ];
+                  },
+                ),
+                PopupMenuButton(
+                  tooltip: '',
+                  padding: const EdgeInsets.all(0),
+                  offset: const Offset(0, 30),
+                  child: TextButton(
+                    onPressed: null,
+                    child: Text(AppLocalizations.of(context)!.help),
+                  ),
+                  itemBuilder: (itemBuilder) {
+                    return [
+                      PopupMenuItem(
+                          onTap: () async {
+                            // TODO add a quick guide
+                          },
+                          height: 30,
+                          child: Text(AppLocalizations.of(context)!.guide)),
+                      PopupMenuItem(
+                          onTap: () async {
+                            // TODO add an about page
+                          },
+                          height: 30,
+                          child: Text(AppLocalizations.of(context)!.about)),
                     ];
                   },
                 ),
@@ -83,7 +113,8 @@ class _ToolBarState extends State<ToolBar> {
     });
   }
 
-  _showFlushBar(String title, String message, Color color, IconData icon) async {
+  _showFlushBar(
+      String title, String message, Color color, IconData icon) async {
     await Flushbar(
       shouldIconPulse: true,
       icon: Icon(
@@ -106,7 +137,8 @@ class _ToolBarState extends State<ToolBar> {
         .pickFiles(type: FileType.custom, allowedExtensions: ['json']);
 
     if (result == null) {
-      _showFlushBar('Error', 'No file selected', Colors.red, CupertinoIcons.exclamationmark_circle);
+      _showFlushBar('Error', 'No file selected', Colors.red,
+          CupertinoIcons.exclamationmark_circle);
       return null;
     }
     final path = result.files.single.path!;
@@ -126,7 +158,8 @@ class _ToolBarState extends State<ToolBar> {
 
     if (outputFile == null) {
       // User canceled the picker
-      _showFlushBar('Error', 'No path selected', Colors.red, CupertinoIcons.exclamationmark_circle);
+      _showFlushBar('Error', 'No path selected', Colors.red,
+          CupertinoIcons.exclamationmark_circle);
       return;
     } else {
       final file = File(outputFile);

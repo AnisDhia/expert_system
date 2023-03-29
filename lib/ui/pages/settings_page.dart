@@ -1,7 +1,10 @@
 import 'package:expert_system/shared/styles/themes.dart';
+import 'package:expert_system/shared/utils/locale_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -16,35 +19,64 @@ class _HomePageState extends State<SettingsPage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
+        child: Column(
           children: [
-            ListTile(
-              leading: const Icon(CupertinoIcons.moon_stars),
-              title: const Text('Dark Mode'),
-              trailing:
-                  Consumer<ThemeNotifier>(builder: (context, value, child) {
+            _newCard(
+              CupertinoIcons.moon_stars,
+              AppLocalizations.of(context)!.darkMode,
+              Consumer<ThemeNotifier>(builder: (context, value, child) {
                 return Switch(
                     value: value.darkTheme,
                     onChanged: (newValue) {
                       value.toggleTheme();
                     });
               }),
-              onTap: () {},
             ),
-            ListTile(
-              leading: const Icon(CupertinoIcons.globe),
-              title: const Text('Language'),
-              trailing: DropdownButton<String>(
+            _newCard(CupertinoIcons.globe, AppLocalizations.of(context)!.language,
+                Consumer<LocaleNotifier>(builder: (context, locale, child) {
+              return DropdownButton<String>(
+                value: locale.locale,
+                alignment: Alignment.bottomCenter,
                 items: const [
-                  DropdownMenuItem(child: Text('English')),
+                  DropdownMenuItem(
+                    value: 'en',
+                    child: Text(
+                      'English',
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: 'fr',
+                    child: Text('Francais'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'ar',
+                    child: Text('العربية'),
+                  ),
                 ],
-                onChanged: (value) {},
-              ),
-              onTap: () {},
-            ),
+                onChanged: (value) {
+                  locale.changeLocale(value!);
+                },
+              );
+            })),
           ],
         ),
       ),
     );
+  }
+
+  Card _newCard(IconData icon, String title, Widget trailing) {
+    return Card(
+        margin: const EdgeInsets.only(bottom: 16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+          child: Row(
+            children: [
+              Icon(icon),
+              const SizedBox(width: 16),
+              Expanded(child: Text(title)),
+              trailing
+            ],
+          ),
+        ));
   }
 }

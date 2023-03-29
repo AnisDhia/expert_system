@@ -4,6 +4,8 @@ import 'package:expert_system/engine/rule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 import '../../engine/clauses/equals_clause.dart';
 import '../../engine/clauses/regex_clause.dart';
@@ -58,9 +60,9 @@ class _EditPageState extends State<EditPage> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text(
-                            'Add New Rules',
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!.addNewRules,
+                            style: const TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
@@ -68,7 +70,7 @@ class _EditPageState extends State<EditPage> {
                             child: TextField(
                               controller: _ruleNameController,
                               decoration:
-                                  const InputDecoration(hintText: 'Rule Name'),
+                                  InputDecoration(hintText: AppLocalizations.of(context)!.ruleName),
                             ),
                           ),
                           const SizedBox(
@@ -83,14 +85,14 @@ class _EditPageState extends State<EditPage> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    const Text('Antecedents'),
+                                    Text(AppLocalizations.of(context)!.antecedents),
                                     SizedBox(
                                       width: 450,
                                       child: TextField(
                                         controller: _antecedentController,
-                                        decoration: const InputDecoration(
+                                        decoration:  InputDecoration(
                                             hintText:
-                                                'Enter an antecedent clause (variable (= or match) value)'),
+                                                '${AppLocalizations.of(context)!.enterAntecedent} (variable (= or match) value)'),
                                       ),
                                     ),
                                     const SizedBox(
@@ -105,8 +107,8 @@ class _EditPageState extends State<EditPage> {
                                                 _rule.clearAntecedents();
                                               });
                                             },
-                                            child: const Text(
-                                                'Clear antecedents')),
+                                            child:  Text(
+                                                AppLocalizations.of(context)!.clearAntecedents)),
                                         ElevatedButton(
                                             onPressed: () {
                                               List<String> parts =
@@ -156,7 +158,7 @@ class _EditPageState extends State<EditPage> {
                                                         const Color.fromARGB(
                                                             50, 33, 149, 243))),
                                             child:
-                                                const Text('Add antecedent')),
+                                                Text(AppLocalizations.of(context)!.addAntecedent)),
                                       ],
                                     ),
                                     const SizedBox(
@@ -184,14 +186,14 @@ class _EditPageState extends State<EditPage> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    const Text('Consequent'),
+                                     Text(AppLocalizations.of(context)!.consequent),
                                     SizedBox(
                                       width: 450,
                                       child: TextField(
                                         controller: _consequentController,
-                                        decoration: const InputDecoration(
+                                        decoration:  InputDecoration(
                                             hintText:
-                                                'Enter a consequent clause (variable (= or match) value)'),
+                                                '${AppLocalizations.of(context)!.enterConsequent} (variable (= or match) value)'),
                                       ),
                                     ),
                                     const SizedBox(
@@ -249,7 +251,7 @@ class _EditPageState extends State<EditPage> {
                                                         const Color.fromARGB(
                                                             50, 33, 149, 243))),
                                             child:
-                                                const Text('Add consequent')),
+                                                Text(AppLocalizations.of(context)!.addConsequent)),
                                       ],
                                     ),
                                     const SizedBox(
@@ -280,11 +282,11 @@ class _EditPageState extends State<EditPage> {
                                   });
                                 }
                               },
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Add Rule',
-                                  style: TextStyle(fontSize: 30),
+                                  AppLocalizations.of(context)!.addRule,
+                                  style: const TextStyle(fontSize: 30),
                                 ),
                               ))
                         ],
@@ -302,10 +304,10 @@ class _EditPageState extends State<EditPage> {
                         children: [
                           Row(
                             children: [
-                              const Expanded(
+                               Expanded(
                                 child: Text(
-                                  'Active Rules',
-                                  style: TextStyle(fontSize: 30),
+                                  AppLocalizations.of(context)!.activeRules,
+                                  style: const TextStyle(fontSize: 30),
                                 ),
                               ),
                               IconButton(
@@ -316,7 +318,7 @@ class _EditPageState extends State<EditPage> {
                                     Icons.delete,
                                     color: Colors.red,
                                   ),
-                                  tooltip: 'Clear all rules'),
+                                  tooltip: AppLocalizations.of(context)!.clearRules),
                             ],
                           ),
                           ListView.builder(
@@ -333,7 +335,7 @@ class _EditPageState extends State<EditPage> {
                                 title: Text('${value.rules[index].name}: '),
                                 subtitle: Text(value.rules[index].toString()),
                                 trailing: IconButton(
-                                    tooltip: 'Remove rule',
+                                    tooltip: AppLocalizations.of(context)!.removeRule,
                                     onPressed: () {
                                       value.removeRule(value.rules[index]);
                                     },
