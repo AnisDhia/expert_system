@@ -81,10 +81,17 @@ class Engine extends ChangeNotifier {
         hasRules = true;
         rule.fire(knowledgeBase);
         logs.add('Rule ${rule.getName()} is fired');
+    notifyListeners();
       }
     }
-    notifyListeners();
     return hasRules;
+  }
+
+  void resetRules() {
+    for (Rule rule in rules) {
+      rule.fired = false;
+    }
+    notifyListeners();
   }
 
   Map<String, dynamic> toJSON() {

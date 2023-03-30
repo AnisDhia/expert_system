@@ -31,10 +31,16 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.1
+  msix: ^3.9.1
 
 flutter:
   uses-material-design: true
   generate: true
 
-  assets:
-    - assets/images/Psychologist-amico.png
+msix_config:
+  display_name: Expert System
+  publisher_display_name: Anis
+  identity_name: anis.suite.flutterapp
+  msix_version: 1.0.0.0
+  logo_path: C:\Users\Anis\Downloads\app_icon.png
+  # capabilities: 

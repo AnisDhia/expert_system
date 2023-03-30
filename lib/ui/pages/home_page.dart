@@ -61,7 +61,8 @@ class _HomePageState extends State<HomePage> {
                             child: TextFormField(
                               controller: _inputController,
                               decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context)!.inputFactHere,
+                                hintText:
+                                    AppLocalizations.of(context)!.inputFactHere,
                                 border: InputBorder.none,
                               ),
                             ),
@@ -136,15 +137,18 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: () {
                                       value.infer();
                                     },
-                                    child: Text(AppLocalizations.of(context)!.inferFacts)),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .inferFacts)),
                                 const SizedBox(
                                   width: 10,
                                 ),
                                 ElevatedButton(
                                     onPressed: () {
                                       value.knowledgeBase.clearFacts();
+                                      value.resetRules();
                                     },
-                                    child: Text(AppLocalizations.of(context)!.clearFacts)),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .clearFacts)),
                               ],
                             ),
                             const SizedBox(
@@ -186,16 +190,28 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width * .93,
                 height: 140,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Log Console',
-                        // style: TextStyle(fontSize: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Log Console',
+                            // style: TextStyle(fontSize: 30),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  value.logs.clear();
+                                });
+                              },
+                              child: const Text('Clear Logs'))
+                        ],
                       ),
                       const SizedBox(
                         height: 10,
@@ -207,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                         child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SizedBox(
-                              height: 60,
+                              height: 55,
                               width: MediaQuery.of(context).size.width,
                               child: ListView.builder(
                                 itemBuilder: (itemBuilder, index) {
