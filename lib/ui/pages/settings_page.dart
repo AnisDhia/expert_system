@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -14,6 +13,10 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<SettingsPage> {
+  Offset distance = const Offset(28, 28);
+  double blur = 30;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,8 @@ class _HomePageState extends State<SettingsPage> {
                     });
               }),
             ),
-            _newCard(CupertinoIcons.globe, AppLocalizations.of(context)!.language,
+            _newCard(
+                CupertinoIcons.globe, AppLocalizations.of(context)!.language,
                 Consumer<LocaleNotifier>(builder: (context, locale, child) {
               return DropdownButton<String>(
                 value: locale.locale,
@@ -58,6 +62,29 @@ class _HomePageState extends State<SettingsPage> {
                 },
               );
             })),
+            Container(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white,
+                        blurRadius: blur,
+                        offset: -distance,
+                        // spreadRadius: -blur,
+                      ),
+                      BoxShadow(
+                        color: const Color(0xFFA7A9AF),
+                        blurRadius: blur,
+                        offset: distance,
+                        // spreadRadius: -blur,
+                      ),
+                    ]),
+                margin: const EdgeInsets.only(top: 16),
+                child: const SizedBox(
+                  height: 200,
+                  width: 200,
+                )),
           ],
         ),
       ),
