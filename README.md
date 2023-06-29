@@ -1,6 +1,6 @@
 # Expert System
 
-An Expert System using flutter (desktop).
+A general purpose expert system engine with UI using flutter  (desktop).
 
 
 
